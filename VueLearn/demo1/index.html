@@ -4,27 +4,40 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>hello world</title>
+    <title>learn 3</title>
     <script src="https://unpkg.com/vue@next"></script>
 </head>
 <body>
     <div id="root"></div>
 </body>
 <script>
-    Vue.createApp({
+    const app = Vue.createApp({
         data(){
             return{
-                content:'hello world'
+                list:[],
+                var_text:''
             }
         },
         methods:{
-          handleBtnClik(){
-            this.content=this.content.split('').reverse().join('');
-        }
+            addVar:()=>{
+                console.log(this)
+            }
         },
-        template:`<div>{{content}}
-            <button @click="handleBtnClik">反转</button></div>
-        `
-    }).mount('#root')
+        
+        template:`
+        <div>
+        <input v-model="var_text"/>
+        <button @click="addVar" 
+        :title=var_text>增加备忘</button>
+        <ul>
+        <todo-item v-for="(item,index) of list" :content="item" :index="index"></todo-item>
+        </ul>
+        </div>`
+    })
+    app.component('todo-item',{
+        props:['content','index'],
+        template:`<li>{{index}}--{{content}}</li>`
+    })
+    app.mount('#root');
 </script>
 </html> 
